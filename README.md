@@ -53,7 +53,7 @@ state.value = 0;
 export const { increment, decrement, reset } = counterSlice.actions;
 
 <h1>
-no go to store.js
+Go to store.js
 </h1>
 
 import { configureStore } from "@reduxjs/toolkit";
@@ -66,7 +66,7 @@ counter: counterSlice.reducer,
 });
 
 <h1>
-now in the index.js wrap your app within provider
+In the index.js wrap your app within provider
 </h1>
 
 import React from "react";
@@ -89,7 +89,7 @@ root.render(
 reportWebVitals();
 
 <h1>
-now clear App.js and write your ui like
+Clear App.js and write your ui like
 </h1>
 
 import { useDispatch, useSelector } from "react-redux";
@@ -134,8 +134,8 @@ dispatch(increment());
 export default App;
 
 <h1>
-now in index.css clear everything and add
-<h1>
+In index.css clear everything and add
+</h1>
 
 - {
   padding: 0;
