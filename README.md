@@ -1,18 +1,21 @@
-=> Create Your App
+<h1>=> Create Your App</h1>
 
 npx create-react-app redux-toolkit-tutorial
 
-=> add 2 libraries into the project
+<h1>=> add 2 libraries into the project</h1>
 
 npm install react-redux
 
 npm install @reduxjs/toolkit
 
+<h1>
 In src make a new folder of redux
 
 in that folder make a folder features and a file store.js
 
 Go to store.js
+
+</h1>
 
 import { configureStore } from "@reduxjs/toolkit";
 
@@ -47,7 +50,9 @@ state.value = 0;
 
 export const { increment, decrement, reset } = counterSlice.actions;
 
+<h1>
 no go to store.js
+</h1>
 
 import { configureStore } from "@reduxjs/toolkit";
 import { counterSlice } from "./features/counter";
@@ -79,7 +84,9 @@ root.render(
 
 reportWebVitals();
 
+<h1>
 now clear App.js and write your ui like
+</h1>
 
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment, reset } from "./redux/features/counter";
@@ -90,6 +97,7 @@ const dispatch = useDispatch();
 
 return (
 <>
+
 <h1>Redux Toolkit</h1>
 <div className="container">
 <h1>{value}</h1>
@@ -121,7 +129,9 @@ dispatch(increment());
 
 export default App;
 
+<h1>
 now in index.css clear everything and add
+<h1>
 
 - {
   padding: 0;
