@@ -24,7 +24,9 @@ reducer: {
 },
 });
 
+<h1>
 now go to features and make a file counter.js
+</h1>
 
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -63,7 +65,9 @@ counter: counterSlice.reducer,
 },
 });
 
+<h1>
 now in the index.js wrap your app within provider
+</h1>
 
 import React from "react";
 import ReactDOM from "react-dom/client";
