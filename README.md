@@ -1,70 +1,176 @@
-# Getting Started with Create React App
+=> Create Your App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+npx create-react-app redux-toolkit-tutorial
 
-## Available Scripts
+=> add 2 libraries into the project
 
-In the project directory, you can run:
+npm install react-redux
 
-### `npm start`
+npm install @reduxjs/toolkit
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+In src make a new folder of redux
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+in that folder make a folder features and a file store.js
 
-### `npm test`
+Go to store.js
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+import { configureStore } from "@reduxjs/toolkit";
 
-### `npm run build`
+export const store = configureStore({
+reducer: {
+},
+});
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+now go to features and make a file counter.js
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+import { createSlice } from "@reduxjs/toolkit";
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+const initialState = {
+value: 0,
+};
 
-### `npm run eject`
+export const counterSlice = createSlice({
+name: "counter",
+initialState,
+reducers: {
+increment: (state) => {
+state.value = state.value + 1;
+},
+decrement: (state) => {
+state.value -= 1;
+},
+reset: (state) => {
+state.value = 0;
+},
+},
+});
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+export const { increment, decrement, reset } = counterSlice.actions;
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+no go to store.js
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+import { configureStore } from "@reduxjs/toolkit";
+import { counterSlice } from "./features/counter";
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+export const store = configureStore({
+reducer: {
+counter: counterSlice.reducer,
+},
+});
 
-## Learn More
+now in the index.js wrap your app within provider
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+<React.StrictMode>
+<Provider store={store}>
+<App />
+</Provider>
+</React.StrictMode>
+);
 
-### Code Splitting
+reportWebVitals();
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+now clear App.js and write your ui like
 
-### Analyzing the Bundle Size
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment, reset } from "./redux/features/counter";
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+function App() {
+const value = useSelector((store) => store.counter.value);
+const dispatch = useDispatch();
 
-### Making a Progressive Web App
+return (
+<>
+<h1>Redux Toolkit</h1>
+<div className="container">
+<h1>{value}</h1>
+<div className="btns">
+<button
+className="dec"
+onClick={() => {
+dispatch(decrement());
+}} > -
+</button>
+<button
+className="reset"
+onClick={() => {
+dispatch(reset());
+}} >
+[Reset]
+</button>
+<button
+className="inc"
+onClick={() => {
+dispatch(increment());
+}} > +
+</button>
+</div>
+</div>
+</>
+);
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+export default App;
 
-### Advanced Configuration
+now in index.css clear everything and add
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  }
+  body {
+  height: 100vh;
+  background-color: #5F264A;
+  display: grid;
+  place-items: center;
+  }
+  .container {
+  position: relative;
+  width: 120vmin;
+  background-color: #B0A4A4;
+  padding: 100px 40px;
+  border-radius: 9px;
+  box-shadow: 0 25px 40px rgba(0, 0, 0, 0.2);
+  }
+  h1 {
+  text-align: center;
+  font-family: "Roboto Mono", monospace;
+  font-size: 80px;
+  color: #ffffff;
+  }
+  .btns {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 80px;
+  }
+  .btns button {
+  width: 130px;
+  padding: 15px 0;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+  }
+  button.inc,
+  button.dec {
+  background-color: #5F264A;
+  color: #ffffff;
+  }
+  button.reset {
+  background-color: transparent;
+  border: 4px solid #5F264A;
+  color: #5F264A;
+  }
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  I hope this will help you in making your first redux - toolkit app
