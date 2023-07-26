@@ -102,9 +102,16 @@ const dispatch = useDispatch();
 return (
 <>
 please uncomment these 2 lines
-<!-- <h1>Redux Toolkit</h1> -->
+
+<!-- <h1> -->
+
+Redux Toolkit
+
+<!-- </h1> -->
 <div className="container">
-<!-- <h1>{value}</h1> -->
+<!-- <h1> -->
+    {value}
+<!--</h1> -->
 <div className="btns">
 <button
 className="dec"
