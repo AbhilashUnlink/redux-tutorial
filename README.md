@@ -101,7 +101,7 @@ const dispatch = useDispatch();
 
 return (
 <>
-please uncomment these 2 lines
+please add h1 tags for value and Redux Toolkit title 
 
 <!-- <h1> -->
 
